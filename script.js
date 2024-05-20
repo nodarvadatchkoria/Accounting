@@ -79,6 +79,7 @@ function createNewRow(accountCode) {
         <td class="balance">0.00</td>
         <td class="last-date"></td>
     `;
+    console.log("add new row")
     return row;
 }
 
