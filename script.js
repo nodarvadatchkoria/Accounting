@@ -5,6 +5,11 @@ document.getElementById('transactionForm').addEventListener('submit', function(e
     const amount = parseFloat(document.getElementById('amount').value);
     const type = document.getElementById('type').value;
 
+    // Save the inputted values in local storage
+    localStorage.setItem('accountCode', accountCode);
+    localStorage.setItem('amount', amount);
+    localStorage.setItem('type', type);
+
     const accountRow = document.querySelector(`tr[data-account-code="${accountCode}"]`);
     if (!accountRow) {
         alert('Account not found!');
