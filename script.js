@@ -65,6 +65,9 @@ document.getElementById('transactionForm').addEventListener('submit', function(e
     const now = new Date();
     const formattedDate = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
     dateCell.textContent = formattedDate;
+
+    // Update the total sums
+    updateTotals();
 });
 
 function createNewRow(accountCode) {
@@ -79,13 +82,13 @@ function createNewRow(accountCode) {
         <td class="balance">0.00</td>
         <td class="last-date"></td>
     `;
-    console.log("add new row")
     return row;
 }
 
 function saveTransaction(accountCode, amount, type) {
     const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-    transactions.push({ accountCode, amount, type, date: new Date().toISOString() });
+    transactions.push({ accountCode, amount, type,
+        date: new Date().toISOString() });
     localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
@@ -148,4 +151,29 @@ function loadSavedData() {
         const formattedDate = new Date(transaction.date).toLocaleDateString() + ' ' + new Date(transaction.date).toLocaleTimeString();
         dateCell.textContent = formattedDate;
     });
+
+    // Update the total sums
+    updateTotals();
 }
+
+function updateTotals() {
+    const debitCells = document.querySelectorAll('.debit');
+    const creditCells = document.querySelectorAll('.credit');
+
+    let totalDebit = 0;
+    let totalCredit = 0;
+
+    debitCells.forEach(cell => {
+        totalDebit += parseFloat(cell.textContent);
+    });
+
+    creditCells.forEach(cell => {
+        totalCredit += parseFloat(cell.textContent);
+    });
+
+    document.getElementById('totalDebit').textContent = totalDebit.toFixed(2);
+    document.getElementById('totalCredit').textContent = totalCredit.toFixed(2);
+}
+
+// Load saved data when the page loads
+window.onload = loadSavedData;
