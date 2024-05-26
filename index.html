@@ -4,28 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chart of Accounts</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-            text-align: left;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #ddd;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body onload="loadSavedData()">
+<body>
 
 <h1>Chart of Accounts</h1>
 
@@ -39,6 +20,7 @@
             <th>Credit</th>
             <th>Balance</th>
             <th>Last Accounting Date</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -48,8 +30,9 @@
             <td>Assets</td>
             <td class="debit">0.00</td>
             <td class="credit">0.00</td>
-            <td class="balance">1000.00</td>
+            <td class="balance">0.00</td>
             <td class="last-date"></td>
+            <td><button type="reset" onclick="resetData('${account.code}')">Reset Data</button></td>
         </tr>
         <tr data-account-code="2000">
             <td>2000</td>
@@ -57,8 +40,9 @@
             <td>Liabilities</td>
             <td class="debit">0.00</td>
             <td class="credit">0.00</td>
-            <td class="balance">500.00</td>
+            <td class="balance">0.00</td>
             <td class="last-date"></td>
+            <td><button type="reset" onclick="resetData('${account.code}')">Reset Data</button></td>
         </tr>
         <!-- Add more initial accounts as needed -->
     </tbody>
@@ -72,7 +56,9 @@
 <h2>Record a Transaction</h2>
 <form id="transactionForm">
     <label for="accountCode">Account Code:</label>
-    <input type="text" id="accountCode" name="accountCode" required><br>
+    <select id="accountCode" name="accountCode" required>
+        <!-- Options will be populated by JavaScript -->
+    </select><br>
     
     <label for="amount">Amount:</label>
     <input type="number" id="amount" name="amount" required><br>
@@ -86,6 +72,6 @@
     <button type="submit">Record Transaction</button>
 </form>
 
-<script src="script.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
